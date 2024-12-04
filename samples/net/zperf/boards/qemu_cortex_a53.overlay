@@ -1,0 +1,17 @@
+/*
+ * Copyright (c) 2022 Huawei Technologies
+ *
+ * SPDX-License-Identifier: Apache 2.0
+ */
+
+/ {
+	virtio_mmio@a000000 {
+		status = "okay";
+		dma-coherent;
+		interrupt-parent = <&gic>;
+		interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL IRQ_DEFAULT_PRIORITY>;
+		interrupt-names = "irq_virtio";
+		reg = <0x00 0xa000000 0x00 0x200>;
+		compatible = "virtio,mmio";
+	};
+};
