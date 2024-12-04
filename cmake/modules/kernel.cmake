@@ -198,6 +198,11 @@ if(CONFIG_QEMU_TARGET)
     list(APPEND QEMU_FLAGS_${ARCH}
       -nic user,model=${CONFIG_ETH_NIC_MODEL},${CONFIG_NET_QEMU_USER_EXTRA_ARGS}
     )
+  elseif(CONFIG_NET_QEMU_VIRTIO)
+    list(APPEND QEMU_FLAGS_${ARCH}
+    -netdev tap,id=vnet0,ifname=${CONFIG_ETH_QEMU_IFACE_NAME},script=no,downscript=no
+    -device virtio-net-device,netdev=vnet0,bus=virtio-mmio-bus.0
+    -global virtio-mmio.force-legacy=false)
   else()
     list(APPEND QEMU_FLAGS_${ARCH}
       -net none
