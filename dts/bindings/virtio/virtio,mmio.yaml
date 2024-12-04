@@ -1,0 +1,28 @@
+# Copyright (c) 2022 Huawei Technologies
+# SPDX-License-Identifier: Apache-2.0
+
+description: VirtIO device properties
+
+compatible: "virtio,mmio"
+
+include: base.yaml
+
+bus: virtio
+
+properties:
+    dma-coherent:
+      type: boolean
+    interrupts:
+      required: true
+    reg:
+      required: true
+    memory-region:
+      type: phandle
+      required: false
+      default: &sram0
+
+interrupt-cells:
+  - type
+  - irq
+  - flags
+  - priority

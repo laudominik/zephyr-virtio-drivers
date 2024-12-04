@@ -1,0 +1,33 @@
+# Virtio driver configuration options
+
+# Copyright (c) 2022 Huawei Technologies
+# SPDX-License-Identifier: Apache-2.0
+
+menuconfig VIRTIO
+	bool "VirtIO drivers"
+	help
+	  Enable VirtIO drivers
+
+if VIRTIO
+
+module = VIRTIO
+module-str = virtio
+source "subsys/logging/Kconfig.template.log_config"
+
+choice
+	prompt "VirtIO transport layer"
+	default VIRTIO_USE_MMIO
+
+config VIRTIO_USE_MMIO
+	bool "VirtIO with MMIO transport layer"
+	help
+	  Use MMIO as a transport layer for VirtIO. Recommended by the
+	  standard for embedded devices
+
+config VIRTIO_USE_PCI
+	bool "VirtIO with PCI transport layer"
+	help
+	  Use PCI as a transport layer for VirtIO.
+endchoice
+
+endif

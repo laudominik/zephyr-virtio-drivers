@@ -137,6 +137,11 @@ config NET_QEMU_USER
 	  is implemented using "slirp", which provides a full TCP/IP stack within
 	  QEMU and uses that stack to implement a virtual NAT'd network.
 
+config NET_QEMU_VIRTIO
+	bool "Virtio"
+	help
+	  Connect to host system via Virtio.
+
 endchoice
 
 config NET_QEMU_USER_EXTRA_ARGS

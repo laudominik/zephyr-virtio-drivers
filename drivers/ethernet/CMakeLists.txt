@@ -55,6 +55,7 @@ endif()
 
 zephyr_library_sources_ifdef(CONFIG_ETH_NXP_S32_GMAC	eth_nxp_s32_gmac.c)
 zephyr_library_sources_ifdef(CONFIG_ETH_NUMAKER		eth_numaker.c)
+zephyr_library_sources_ifdef(CONFIG_VIRTIO_NET		eth_virtio_net.c)
 
 if(CONFIG_ETH_NATIVE_POSIX)
   if (CONFIG_NATIVE_APPLICATION)

@@ -97,4 +97,6 @@ source "drivers/xen/Kconfig"
 
 source "drivers/tee/Kconfig"
 
+source "drivers/virtio/Kconfig"
+
 endmenu

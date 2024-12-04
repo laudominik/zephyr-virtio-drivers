@@ -1,0 +1,13 @@
+# ETH_VIRTIO_NET Ethernet driver configuration options
+
+# Copyright (c) 2022 Huawei Technologies
+# SPDX-License-Identifier: Apache-2.0
+
+config VIRTIO_NET
+	bool "VirtIO net driver"
+	depends on VIRTIO
+	default n
+	select DYNAMIC_INTERRUPTS
+	help
+	  Build the VirtIO-net driver. Currently we only support this on virt (cortex A53).
+	  It will bind the device to virtio-mmio bus 0 on QEMU.
