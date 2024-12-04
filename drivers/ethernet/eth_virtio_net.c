@@ -136,7 +136,7 @@ static int vnet_dev_init(const struct device *dev)
 
 		vq_rx->avail->ring[i] = virtio_cpu_to_modern16(vdev, id);
 	}
-	dmb();
+	barrier_dmem_fence_full();
 
 	vq_rx->avail->flags = virtio_cpu_to_modern16(vdev, 0);
 	vq_rx->avail->idx = virtio_cpu_to_modern16(vdev, RX_QUEUE_SIZE);
@@ -214,9 +214,9 @@ static int vnet_xmit(struct virtio_net *vnet, void *buf, size_t len)
 	virtio_fill_desc(vq_tx, id + 1, vdev->features, (uint64_t)buf, len, 0, 0);
 
 	vq_tx->avail->ring[idx % vq_tx->size] = virtio_cpu_to_modern16(vdev, id);
-	dmb();
+	barrier_dmem_fence_full();
 	vq_tx->avail->idx = virtio_cpu_to_modern16(vdev, idx + 1);
-	dmb();
+	barrier_dmem_fence_full();
 
 	/* Kick the HV to notify packet transmition */
 	virtio_queue_notify(vdev, VQ_TX);
@@ -297,7 +297,7 @@ static int vnet_receive(struct virtio_net *vnet, void *buf, size_t maxlen)
 	avail_idx = virtio_modern16_to_cpu(vdev, vq_rx->avail->idx);
 	vq_rx->avail->ring[avail_idx % vq_rx->size] = virtio_cpu_to_modern16(vdev, id - 1);
 	vq_rx->avail->idx = virtio_cpu_to_modern16(vdev, avail_idx + 1);
-	dmb();
+	barrier_dmem_fence_full();
 
 	/* Tell HV that RX queue entry is ready */
 	virtio_queue_notify(vdev, VQ_RX);
