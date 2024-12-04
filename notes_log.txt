@@ -1,0 +1,28 @@
+
+# Run demo
+## Build
+```
+west build --pristine -b qemu_cortex_a53 zephyr/samples/net/sockets/echo_server
+```
+
+## Run
+```
+sudo west build -t run
+```
+
+# debugging via gdb:
+## To run
+```
+cd build/
+sudo ninja debugserver
+```
+## in GDB
+```
+target remote tcp::1234
+```
+
+# What works and what not
+
+1) The drivers initialize, but they probably mess something up somewhere, not sure where (K_ERR_CPU_EXCEPTION).
+2) CONFIG_NET_QEMU_VIRTIO=n fixes the halting -> <err> eth_virtio_net: vnet_dev_init: vdev null is thrown (obviously)
+3) the issue is likely to be with eth_virtio_net.c
